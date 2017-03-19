@@ -26,17 +26,6 @@ CKEDITOR.dialog.add( 'html5video', function( editor ) {
                         commit: function( widget ) {
                             widget.setData( 'src', this.getValue() );
                         }
-                    },
-                    {
-                        type: 'button',
-                        id: 'browse',
-                        // v-align with the 'txtUrl' field.
-                        // TODO: We need something better than a fixed size here.
-                        style: 'display:inline-block;margin-top:14px;',
-                        align: 'center',
-                        label: editor.lang.common.browseServer,
-                        hidden: true,
-                        filebrowser: 'info:url'
                     } ]
                 } ]
             },
@@ -106,7 +95,26 @@ CKEDITOR.dialog.add( 'html5video', function( editor ) {
                         widget.setData( 'align', this.getValue() );
                     }
                 } ]
-            } ]
+            },
+            {
+                type: 'radio',
+                id: 'autoplay',
+                label: editor.lang.html5video.autoplay,
+                items: [
+                    [editor.lang.html5video.yes, 'yes'],
+                    [editor.lang.html5video.no, 'no']
+                ],
+                'default': 'no',
+                setup: function( widget ) {
+                    if ( widget.data.autoplay ) {
+                        this.setValue( widget.data.autoplay );
+                    }
+                },
+                commit: function( widget ) {
+                    widget.setData( 'autoplay', this.getValue() );
+                }
+            }
+            ]
         },
         {
             id: 'Upload',
@@ -126,35 +134,6 @@ CKEDITOR.dialog.add( 'html5video', function( editor ) {
                 filebrowser: 'info:url',
                 label: editor.lang.html5video.btnUpload,
                 'for': [ 'Upload', 'upload' ]
-            } ]
-        },
-        {
-            id: 'advanced',
-            label: editor.lang.html5video.advanced,
-            elements: [ {
-                type: 'vbox',
-                padding: 0,
-                children: [ {
-                    type: 'hbox',
-                    children: [ {
-                        type: 'radio',
-                        id: 'autoplay',
-                        label: editor.lang.html5video.autoplay,
-                        items: [
-                            [editor.lang.html5video.yes, 'yes'],
-                            [editor.lang.html5video.no, 'no']
-                        ],
-                        'default': 'no',
-                        setup: function( widget ) {
-                            if ( widget.data.autoplay ) {
-                                this.setValue( widget.data.autoplay );
-                            }
-                        },
-                        commit: function( widget ) {
-                            widget.setData( 'autoplay', this.getValue() );
-                        }
-                    } ]
-                } ]
             } ]
         } ]
     };
